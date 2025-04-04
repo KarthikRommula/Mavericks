@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechLearn - BTech E-Learning Platform</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">TechLearn</a>
+            </div>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#">Courses</a></li>
+                <li><a href="#">Code Playground</a></li>
+                <li><a href="#">Resources</a></li>
+                <li><a href="#">Community</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#" class="btn-login">Login</a></li>
+                <li><a href="#" class="btn-signup">Sign Up</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Master Engineering Concepts Like Never Before</h1>
+                <p>A comprehensive e-learning platform designed exclusively for BTech students combining PDFs, videos, interactive code practice, and AI-powered assistance.</p>
+                <div class="hero-buttons">
+                    <a href="#" class="btn-primary">Explore Courses</a>
+                    <a href="#" class="btn-secondary">Try Code Playground</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="/api/placeholder/600/400" alt="BTech students learning">
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Learn Your Way</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <h3>Comprehensive PDFs</h3>
+                    <p>Downloadable study materials and reference guides for all engineering subjects.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                    <h3>Video Tutorials</h3>
+                    <p>Engaging video explanations to visualize complex engineering concepts.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Interactive Coding</h3>
+                    <p>Practice coding with our Gemini AI-powered playground for instant feedback.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-microphone-alt"></i>
+                    </div>
+                    <h3>Voice Assistance</h3>
+                    <p>Get voice explanations for debugging and improving your code.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Preview Section -->
+    <section class="courses-preview">
+        <div class="container">
+            <h2 class="section-title">Popular Courses</h2>
+            <div class="courses-grid">
+                <div class="course-card">
+                    <div class="course-image">
+                        <img src="/api/placeholder/300/200" alt="Data Structures Course">
+                    </div>
+                    <div class="course-content">
+                        <span class="course-tag">Computer Science</span>
+                        <h3>Data Structures & Algorithms</h3>
+                        <p>Master the fundamental building blocks of efficient software design.</p>
+                        <div class="course-meta">
+                            <span><i class="fas fa-user"></i> 1.2k students</span>
+                            <span><i class="fas fa-star"></i> 4.8/5</span>
+                        </div>
+                        <a href="#" class="btn-course">View Course</a>
+                    </div>
+                </div>
+                <div class="course-card">
+                    <div class="course-image">
+                        <img src="/api/placeholder/300/200" alt="Circuit Design Course">
+                    </div>
+                    <div class="course-content">
+                        <span class="course-tag">Electrical Engineering</span>
+                        <h3>Digital Circuit Design</h3>
+                        <p>Learn to design and analyze complex digital electronic circuits.</p>
+                        <div class="course-meta">
+                            <span><i class="fas fa-user"></i> 950 students</span>
+                            <span><i class="fas fa-star"></i> 4.6/5</span>
+                        </div>
+                        <a href="#" class="btn-course">View Course</a>
+                    </div>
+                </div>
+                <div class="course-card">
+                    <div class="course-image">
+                        <img src="/api/placeholder/300/200" alt="Machine Learning Course">
+                    </div>
+                    <div class="course-content">
+                        <span class="course-tag">AI & ML</span>
+                        <h3>Machine Learning Foundations</h3>
+                        <p>Build a strong foundation in machine learning algorithms and applications.</p>
+                        <div class="course-meta">
+                            <span><i class="fas fa-user"></i> 1.5k students</span>
+                            <span><i class="fas fa-star"></i> 4.9/5</span>
+                        </div>
+                        <a href="#" class="btn-course">View Course</a>
+                    </div>
+                </div>
+            </div>
+            <div class="courses-cta">
+                <a href="#" class="btn-primary">Browse All Courses</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Code Playground Preview -->
+    <section class="code-playground-preview">
+        <div class="container">
+            <div class="playground-content">
+                <h2>AI-Powered Code Playground</h2>
+                <p>Practice coding in real-time with instant feedback from our Gemini AI integration. Debug errors, optimize your code, and learn best practices across multiple programming languages.</p>
+                <ul class="playground-features">
+                    <li><i class="fas fa-check-circle"></i> Real-time error detection and fixes</li>
+                    <li><i class="fas fa-check-circle"></i> Code optimization suggestions</li>
+                    <li><i class="fas fa-check-circle"></i> Multi-language support</li>
+                    <li><i class="fas fa-check-circle"></i> Voice-guided debugging</li>
+                </ul>
+                <a href="#" class="btn-primary">Try Code Playground</a>
+            </div>
+            <div class="playground-image">
+                <img src="/api/placeholder/500/300" alt="Code Playground Interface">
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">What Students Say</h2>
+            <div class="testimonials-slider">
+                <div class="testimonial-card">
+                    <div class="student-profile">
+                        <img src="/api/placeholder/80/80" alt="Student Avatar">
+                        <div class="student-info">
+                            <h4>Rahul Sharma</h4>
+                            <p>Computer Science, 3rd Year</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"The AI code debugging feature helped me understand complex algorithms much faster than traditional methods. The voice explanations for errors are incredibly helpful!"</p>
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="student-profile">
+                        <img src="/api/placeholder/80/80" alt="Student Avatar">
+                        <div class="student-info">
+                            <h4>Priya Patel</h4>
+                            <p>Electronics Engineering, 4th Year</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"Having both PDF resources and YouTube videos in one place made studying for exams so much more efficient. The community forums helped me connect with students facing similar challenges."</p>
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Transform Your Learning Experience?</h2>
+            <p>Join thousands of BTech students already using our platform to master engineering concepts.</p>
+            <a href="#" class="btn-cta">Sign Up For Free</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>TechLearn</h3>
+                    <p>Transforming BTech education through multi-format learning and AI assistance.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Courses</a></li>
+                        <li><a href="#">Code Playground</a></li>
+                        <li><a href="#">Resources</a></li>
+                        <li><a href="#">Community</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Tutorials</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Subscribe</h4>
+                    <p>Stay updated with our latest courses and features.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your Email Address">
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom ">
+                <p style="text-align: center;">&copy; 2025 TechLearn. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
