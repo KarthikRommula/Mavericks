@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses - TechLearn</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">TechLearn</a>
+            </div>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="courses.html" class="active">Courses</a></li>
+                <li><a href="code-playground.html">Code Playground</a></li>
+                <li><a href="resources.html">Resources</a></li>
+                <li><a href="community.html">Community</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="#" class="btn-login">Login</a></li>
+                <li><a href="#" class="btn-signup">Sign Up</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Courses Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Explore Our Courses</h1>
+            <p>Comprehensive learning paths designed for BTech students across various engineering disciplines</p>
+        </div>
+    </section>
+
+    <!-- Course Categories -->
+    <section class="course-categories">
+        <div class="container">
+            <div class="categories-wrapper">
+                <div class="category-filters">
+                    <button class="category-btn active" data-filter="all">All Courses</button>
+                    <button class="category-btn" data-filter="cs">Computer Science</button>
+                    <button class="category-btn" data-filter="ee">Electrical Engineering</button>
+                    <button class="category-btn" data-filter="me">Mechanical Engineering</button>
+                    <button class="category-btn" data-filter="civil">Civil Engineering</button>
+                    <button class="category-btn" data-filter="ai">AI & ML</button>
+                </div>
+                <div class="search-filter">
+                    <input type="text" placeholder="Search courses..." id="course-search">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Grid -->
+    <section class="courses-grid-section">
+        <div class="container">
+            <div class="courses-grid">
+                <!-- Computer Science Courses -->
+                <div class="course-card" data-category="cs">
+                    <div class="course-image">
+                        <img src="https://source.unsplash.com/random/300x200/?algorithm,data" alt="Data Structures Course">
+                    </div>
+                    <div class="course-content">
+                        <span class="course-tag">Computer Science</span>
+                        <h3>Data Structures & Algorithms</h3>
+                        <p>Master essential data structures and algorithms with practical implementations.</p>
+                        <div class="course-meta">
+                            <span><i class="fas fa-clock"></i> 12 weeks</span>
+                            <span><i class="fas fa-star"></i> 4.8/5</span>
+                        </div>
+                        <a href="#" class="btn-course">View Course</a>
+                    </div>
+                </div>
+
+                <div class="course-card" data-category="cs">
+                    <div class="course-image">
+                        <img src="https://source.unsplash.com/random/300x200/?database,sql" alt="Database Systems Course">
+                    </div>
+                    <div class="course-content">
+                        <span class="course-tag">Computer Science</span>
+                        <h3>Database Management Systems</h3>
+                        <p>Learn database design, SQL, and advanced database management techniques.</p>
+                        <div class="course-meta">
+                            <span><i class="fas fa-clock"></i> 10 weeks</span>
+                            <span><i class="fas fa-star"></i> 4.7/5</span>
+                        </div>
+                        <a href="#" class="btn-course">View Course</a>
+                    </div>
+                </div>
+
+                <div class="course-card" data-category="cs">
+                    <div class="course-image">
+                        <img src="https://source.unsplash.com/random/300x200/?network,computer" alt="Computer Networks Course">
+                    </div>
+                    <div class="course-content">
+                        <span class="course-tag">Computer Science</span>
+                        <h3>Computer Networks</h3>
+                        <p>Understand networking fundamentals, protocols, and network security.</p>
+                        <div class="course-meta">
+                            <span><i class="fas fa-clock"></i> 8 weeks</span>
+                            <span><i class="fas fa-star"></i> 4.6/5</span>
+                        </div>
+                        <a href="#" class="btn-course">View Course</a>
+                    </div>
+                </div>
+
+                <!-- Electrical Engineering Courses -->
+                <div class="course-card" data-category="ee">
+                    <div class="course-image">
+                        <img src="https://source.unsplash.com/random/300x200/?circuit,electronics" alt="Circuit Design Course">
+                    </div>
+                    <div class="course-content">
+                        <span class="course-tag">Electrical Engineering</span>
+                        <h3>Circuit Design & Analysis</h3>
+                        <p>Learn to design and analyze electronic circuits with practical simulations.</p>
+                        <div class="course-meta">
+                            <span><i class="fas fa-clock"></i> 10 weeks</span>
+                            <span><i class="fas fa-star"></i> 4.6/5</span>
+                        </div>
+                        <a href="#" class="btn-course">View Course</a>
+                    </div>
+                </div>
+
+                <div class="course-card" data-category="ee">
+                    <div class="course-image">
+                        <img src="https://source.unsplash.com/random/300x200/?power,electricity" alt="Power Systems Course">
+                    </div>
+                    <div class="course-content">
+                        <span class="course-tag">Electrical Engineering</span>
+                        <h3>Power Systems Engineering</h3>
+                        <p>Comprehensive study of power generation, transmission, and distribution systems.</p>
+                        <div class="course-meta">
+                            <span><i class="fas fa-clock"></i> 12 weeks</span>
+                            <span><i class="fas fa-star"></i> 4.5/5</span>
+                        </div>
+                        <a href="#" class="btn-course">View Course</a>
+                    </div>
+                </div>
+
+                <!-- Mechanical Engineering Courses -->
+                <div class="course-card" data-category="me">
+                    <div class="course-image">
+                        <img src="https://source.unsplash.com/random/300x200/?mechanical,engineering" alt="Thermodynamics Course">
+                    </div>
+                    <div class="course-content">
+                        <span class="course-tag">Mechanical Engineering</span>
+                        <h3>Engineering Thermodynamics</h3>
+                        <p>Study energy conversion, heat transfer, and thermodynamic systems.</p>
+                        <div class="course-meta">
+                            <span><i class="fas fa-clock"></i> 10 weeks</span>
+                            <span><i class="fas fa-star"></i> 4.7/5</span>
+                        </div>
+                        <a href="#" class="btn-course">View Course</a>
+                    </div>
+                </div>
+
+                <div class="course-card" data-category="me">
+                    <div class="course-image">
+                        <img src="https://source.unsplash.com/random/300x200/?manufacturing,factory" alt="Manufacturing Course">
+                    </div>
+                    <div class="course-content">
+                        <span class="course-tag">Mechanical Engineering</span>
+                        <h3>Manufacturing Processes</h3>
+                        <p>Learn about various manufacturing techniques, tools, and quality control.</p>
+                        <div class="course-meta">
+                            <span><i class="fas fa-clock"></i> 8 weeks</span>
+                            <span><i class="fas fa-star"></i> 4.5/5</span>
+                        </div>
+                        <a href="#" class="btn-course">View Course</a>
+                    </div>
+                </div>
+
+                <!-- Civil Engineering Courses -->
+                <div class="course-card" data-category="civil">
+                    <div class="course-image">
+                        <img src="https://source.unsplash.com/random/300x200/?structure,building" alt="Structural Analysis Course">
+                    </div>
+                    <div class="course-content">
+                        <span class="course-tag">Civil Engineering</span>
+                        <h3>Structural Analysis</h3>
+                        <p>Learn to analyze and design various structural systems and components.</p>
+                        <div class="course-meta">
+                            <span><i class="fas fa-clock"></i> 12 weeks</span>
+                            <span><i class="fas fa-star"></i> 4.6/5</span>
+                        </div>
+                        <a href="#" class="btn-course">View Course</a>
+                    </div>
+                </div>
+
+                <div class="course-card" data-category="civil">
+                    <div class="course-image">
+                        <img src="https://source.unsplash.com/random/300x200/?construction,civil" alt="Construction Management Course">
+                    </div>
+                    <div class="course-content">
+                        <span class="course-tag">Civil Engineering</span>
+                        <h3>Construction Management</h3>
+                        <p>Study project planning, scheduling, and management in construction.</p>
+                        <div class="course-meta">
+                            <span><i class="fas fa-clock"></i> 10 weeks</span>
+                            <span><i class="fas fa-star"></i> 4.7/5</span>
+                        </div>
+                        <a href="#" class="btn-course">View Course</a>
+                    </div>
+                </div>
+
+                <!-- AI & ML Courses -->
+                <div class="course-card" data-category="ai">
+                    <div class="course-image">
+                        <img src="https://source.unsplash.com/random/300x200/?ai,machine-learning" alt="Machine Learning Course">
+                    </div>
+                    <div class="course-content">
+                        <span class="course-tag">AI & ML</span>
+                        <h3>Machine Learning Fundamentals</h3>
+                        <p>Master machine learning algorithms, data preprocessing, and model evaluation.</p>
+                        <div class="course-meta">
+                            <span><i class="fas fa-clock"></i> 12 weeks</span>
+                            <span><i class="fas fa-star"></i> 4.9/5</span>
+                        </div>
+                        <a href="#" class="btn-course">View Course</a>
+                    </div>
+                </div>
+
+                <div class="course-card" data-category="ai">
+                    <div class="course-image">
+                        <img src="https://source.unsplash.com/random/300x200/?neural,network" alt="Deep Learning Course">
+                    </div>
+                    <div class="course-content">
+                        <span class="course-tag">AI & ML</span>
+                        <h3>Deep Learning & Neural Networks</h3>
+                        <p>Explore neural network architectures, training techniques, and applications.</p>
+                        <div class="course-meta">
+                            <span><i class="fas fa-clock"></i> 14 weeks</span>
+                            <span><i class="fas fa-star"></i> 4.8/5</span>
+                        </div>
+                        <a href="#" class="btn-course">View Course</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <a href="#" class="active">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#" class="next">Next <i class="fas fa-chevron-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Paths -->
+    <section class="course-paths">
+        <div class="container">
+            <h2 class="section-title">Learning Paths</h2>
+            <p class="section-description">Structured course sequences designed to build your skills progressively</p>
+            
+            <div class="paths-grid">
+                <div class="path-card">
+                    <div class="path-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>Full Stack Development</h3>
+                    <p>From frontend to backend, master the complete web development stack</p>
+                    <ul class="path-courses">
+                        <li>Web Fundamentals (HTML, CSS, JS)</li>
+                        <li>Frontend Frameworks</li>
+                        <li>Backend Development</li>
+                        <li>Database Integration</li>
+                        <li>DevOps & Deployment</li>
+                    </ul>
+                    <a href="#" class="btn-primary">Start Path</a>
+                </div>
+                
+                <div class="path-card">
+                    <div class="path-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>AI & Data Science</h3>
+                    <p>Build expertise in data analysis, machine learning, and AI applications</p>
+                    <ul class="path-courses">
+                        <li>Python for Data Science</li>
+                        <li>Data Analysis & Visualization</li>
+                        <li>Machine Learning Fundamentals</li>
+                        <li>Deep Learning</li>
+                        <li>AI Applications</li>
+                    </ul>
+                    <a href="#" class="btn-primary">Start Path</a>
+                </div>
+                
+                <div class="path-card">
+                    <div class="path-icon">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <h3>Embedded Systems</h3>
+                    <p>Design and program embedded systems for IoT and hardware applications</p>
+                    <ul class="path-courses">
+                        <li>Microcontroller Programming</li>
+                        <li>Embedded C/C++</li>
+                        <li>IoT Fundamentals</li>
+                        <li>Real-time Operating Systems</li>
+                        <li>Hardware-Software Integration</li>
+                    </ul>
+                    <a href="#" class="btn-primary">Start Path</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Advance Your Engineering Skills?</h2>
+            <p>Join thousands of BTech students already using our platform to master engineering concepts.</p>
+            <a href="#" class="btn-cta signup-trigger">Sign Up For Free</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>TechLearn</h3>
+                    <p>Transforming BTech education through multi-format learning and AI assistance.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="courses.html">Courses</a></li>
+                        <li><a href="code-playground.html">Code Playground</a></li>
+                        <li><a href="resources.html">Resources</a></li>
+                        <li><a href="community.html">Community</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Tutorials</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Subscribe</h4>
+                    <p>Stay updated with our latest courses and features.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your Email Address">
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 TechLearn. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/db.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/ai-integration.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Course filtering functionality
+            const categoryBtns = document.querySelectorAll('.category-btn');
+            const courseCards = document.querySelectorAll('.course-card');
+            const searchInput = document.getElementById('course-search');
+            
+            // Filter courses by category
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    categoryBtns.forEach(b => b.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    const filter = this.getAttribute('data-filter');
+                    
+                    // Show/hide courses based on category
+                    courseCards.forEach(card => {
+                        if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // Search functionality
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                
+                courseCards.forEach(card => {
+                    const title = card.querySelector('h3').textContent.toLowerCase();
+                    const description = card.querySelector('p').textContent.toLowerCase();
+                    
+                    if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -3,6 +3,34 @@ document.addEventListener('DOMContentLoaded', function() {
     const isHomePage = document.querySelector('.hero') !== null;
     const isCoursesPage = document.querySelector('.course-categories') !== null;
     const isPlaygroundPage = document.querySelector('.playground-section') !== null;
+    
+    // Check for database initialization status
+    if (window.userDB || window.dbInitStatus) {
+        console.log('Database module detected, ensuring initialization...');
+        
+        // Function to wait for database initialization
+        async function ensureDatabaseReady() {
+            try {
+                if (window.dbInitStatus && typeof window.dbInitStatus.waitForInitialization === 'function') {
+                    await window.dbInitStatus.waitForInitialization();
+                    console.log('Database successfully initialized');
+                    
+                    // Update UI based on auth state once DB is ready
+                    if (window.auth && typeof window.auth.updateUIBasedOnAuthState === 'function') {
+                        window.auth.updateUIBasedOnAuthState();
+                    }
+                }
+            } catch (error) {
+                console.error('Database initialization failed:', error);
+                if (window.auth && window.auth.showNotification) {
+                    window.auth.showNotification('Database initialization failed. Some features may not work properly.', 'error');
+                }
+            }
+        }
+        
+        // Start the initialization check
+        ensureDatabaseReady();
+    }
     // Mobile Navigation Toggle
     const menuToggle = document.querySelector('.menu-toggle');
     const navMenu = document.querySelector('.nav-menu');
@@ -103,23 +131,33 @@ document.addEventListener('DOMContentLoaded', function() {
             const email = emailInput.value.trim();
             
             if (validateEmail(email)) {
+                // Simulate successful subscription
+                emailInput.value = '';
+                
                 // Show success message
                 const successMessage = document.createElement('div');
                 successMessage.className = 'form-success-message';
                 successMessage.textContent = 'Thank you for subscribing!';
                 
-                this.innerHTML = '';
+                // Remove existing messages
+                const existingSuccess = this.querySelector('.form-success-message');
+                if (existingSuccess) existingSuccess.remove();
+                
                 this.appendChild(successMessage);
                 
-                // In a real scenario, you would send this to your backend
-                console.log('Newsletter subscription for:', email);
+                // Remove success message after 3 seconds
+                setTimeout(() => {
+                    if (successMessage.parentNode) {
+                        successMessage.parentNode.removeChild(successMessage);
+                    }
+                }, 3000);
             } else {
                 // Show error message
                 const errorMessage = document.createElement('div');
                 errorMessage.className = 'form-error-message';
                 errorMessage.textContent = 'Please enter a valid email address.';
                 
-                // Remove any existing error message
+                // Remove existing error
                 const existingError = this.querySelector('.form-error-message');
                 if (existingError) existingError.remove();
                 
@@ -130,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function validateEmail(email) {
         const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(String(email).toLowerCase());
+        return re.test(email.toLowerCase());
     }
     
     // Add sticky header when scrolling
@@ -145,27 +183,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Course card hover effects
-    const courseCards = document.querySelectorAll('.course-card');
-    courseCards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.classList.add('hover');
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.classList.remove('hover');
-        });
-    });
-    
-    // Feature card animations
+    // Animate feature cards on scroll
     const featureCards = document.querySelectorAll('.feature-card');
     
-    // Simple animation when feature cards come into view
-    if ('IntersectionObserver' in window) {
-        const observer = new IntersectionObserver((entries) => {
+    // Check if IntersectionObserver is supported
+    if ('IntersectionObserver' in window && featureCards.length > 0) {
+        const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('animated');
+                    // Stop observing once animation is triggered
                     observer.unobserve(entry.target);
                 }
             });
@@ -181,155 +208,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Login modal functionality
-    const loginBtn = document.querySelector('.btn-login');
-    const signupBtn = document.querySelector('.btn-signup');
-    const signupTriggers = document.querySelectorAll('.signup-trigger');
-    
-    if (loginBtn) {
-        loginBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            createAndShowModal('login');
-        });
-    }
-    
-    if (signupBtn) {
-        signupBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            createAndShowModal('signup');
-        });
-    }
-    
-    // Additional signup triggers (like CTA buttons)
-    if (signupTriggers.length > 0) {
-        signupTriggers.forEach(trigger => {
-            trigger.addEventListener('click', function(e) {
-                e.preventDefault();
-                createAndShowModal('signup');
-            });
-        });
-    }
-    
-    function createAndShowModal(type) {
-        // Remove any existing modal
-        const existingModal = document.querySelector('.auth-modal');
-        if (existingModal) existingModal.remove();
-        
-        // Create modal
-        const modal = document.createElement('div');
-        modal.className = 'auth-modal';
-        
-        const modalContent = document.createElement('div');
-        modalContent.className = 'auth-modal-content';
-        
-        const closeBtn = document.createElement('span');
-        closeBtn.className = 'auth-modal-close';
-        closeBtn.innerHTML = '&times;';
-        closeBtn.addEventListener('click', function() {
-            modal.remove();
-        });
-        
-        const form = document.createElement('form');
-        form.className = 'auth-form';
-        
-        const title = document.createElement('h2');
-        title.textContent = type === 'login' ? 'Login to Your Account' : 'Create an Account';
-        
-        form.appendChild(title);
-        
-        // Add form elements based on type
-        if (type === 'login') {
-            form.innerHTML += `
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" required>
-                </div>
-                <div class="form-group">
-                    <a href="#" class="forgot-password">Forgot password?</a>
-                </div>
-                <button type="submit" class="btn-primary btn-block">Login</button>
-                <p class="auth-switch">Don't have an account? <a href="#" class="switch-to-signup">Sign Up</a></p>
-            `;
-        } else {
-            form.innerHTML += `
-                <div class="form-group">
-                    <label for="name">Full Name</label>
-                    <input type="text" id="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" required>
-                </div>
-                <div class="form-group">
-                    <label for="confirm-password">Confirm Password</label>
-                    <input type="password" id="confirm-password" required>
-                </div>
-                <button type="submit" class="btn-primary btn-block">Sign Up</button>
-                <p class="auth-switch">Already have an account? <a href="#" class="switch-to-login">Login</a></p>
-            `;
-        }
-        
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const formData = new FormData(form);
-            console.log('Form submitted:', type);
-            
-            // Display success message
-            form.innerHTML = `
-                <div class="auth-success">
-                    <i class="fas fa-check-circle"></i>
-                    <h3>${type === 'login' ? 'Login Successful!' : 'Account Created!'}</h3>
-                    <p>${type === 'login' ? 'You will be redirected to your dashboard.' : 'Welcome to TechLearn!'}</p>
-                </div>
-            `;
-            
-            // In a real scenario, you would handle authentication with a backend
-            setTimeout(() => {
-                modal.remove();
-            }, 2000);
-        });
-        
-        // Add switch functionality
-        modalContent.appendChild(closeBtn);
-        modalContent.appendChild(form);
-        modal.appendChild(modalContent);
-        document.body.appendChild(modal);
-        
-        // Add event listeners for switching between login and signup
-        const switchToSignup = modal.querySelector('.switch-to-signup');
-        if (switchToSignup) {
-            switchToSignup.addEventListener('click', function(e) {
-                e.preventDefault();
-                modal.remove();
-                createAndShowModal('signup');
-            });
-        }
-        
-        const switchToLogin = modal.querySelector('.switch-to-login');
-        if (switchToLogin) {
-            switchToLogin.addEventListener('click', function(e) {
-                e.preventDefault();
-                modal.remove();
-                createAndShowModal('login');
-            });
-        }
-        
-        // Close modal when clicking outside
-        modal.addEventListener('click', function(e) {
-            if (e.target === modal) {
-                modal.remove();
-            }
-        });
-    }
-    
     // Feature link hover effects
     const featureLinks = document.querySelectorAll('.feature-link');
     if (featureLinks.length > 0) {
@@ -337,14 +215,10 @@ document.addEventListener('DOMContentLoaded', function() {
             link.addEventListener('mouseenter', function() {
                 const icon = this.querySelector('i');
                 if (icon) {
-                    icon.style.transform = 'translateX(5px)';
-                }
-            });
-            
-            link.addEventListener('mouseleave', function() {
-                const icon = this.querySelector('i');
-                if (icon) {
-                    icon.style.transform = 'translateX(0)';
+                    icon.classList.add('bounce');
+                    setTimeout(() => {
+                        icon.classList.remove('bounce');
+                    }, 1000);
                 }
             });
         });
@@ -359,21 +233,20 @@ document.addEventListener('DOMContentLoaded', function() {
             // Create and show a simple code playground preview
             const playgroundModal = document.createElement('div');
             playgroundModal.className = 'playground-modal';
-            
             playgroundModal.innerHTML = `
                 <div class="playground-modal-content">
-                    <span class="playground-modal-close">&times;</span>
-                    <h2>Interactive Code Playground</h2>
-                    <div class="playground-interface">
+                    <div class="playground-modal-header">
+                        <h3>Code Playground Preview</h3>
+                        <button class="close-modal"><i class="fas fa-times"></i></button>
+                    </div>
+                    <div class="playground-modal-body">
                         <div class="playground-editor">
                             <div class="editor-header">
-                                <span class="language-selector">
-                                    <select>
-                                        <option value="javascript">JavaScript</option>
-                                        <option value="python">Python</option>
-                                        <option value="java">Java</option>
-                                        <option value="c++">C++</option>
-                                    </select>
+                                <span>JavaScript</span>
+                                <div class="editor-actions">
+                                    <button class="ai-assist-btn" title="AI Assistance"><i class="fas fa-robot"></i></button>
+                                    <button class="voice-explain-btn" title="Voice Explanation"><i class="fas fa-microphone-alt"></i></button>
+                                    <button class="clear-output-btn" title="Clear Output"><i class="fas fa-trash"></i></button>
                                 </span>
                                 <button class="run-code-btn">Run Code</button>
                             </div>
@@ -383,24 +256,19 @@ console.log("Hello, TechLearn!");</textarea>
                         <div class="playground-output">
                             <div class="output-header">
                                 <span>Output</span>
-                                <button class="clear-output-btn">Clear</button>
                             </div>
                             <div class="output-console">
                                 <div class="console-message">// Output will appear here</div>
                             </div>
                         </div>
                     </div>
-                    <div class="playground-footer">
-                        <button class="ai-assist-btn"><i class="fas fa-robot"></i> AI Assist</button>
-                        <button class="voice-explain-btn"><i class="fas fa-microphone-alt"></i> Voice Explain</button>
-                    </div>
                 </div>
             `;
             
             document.body.appendChild(playgroundModal);
             
-            // Add functionality to the playground
-            const closeBtn = playgroundModal.querySelector('.playground-modal-close');
+            // Add event listeners
+            const closeBtn = playgroundModal.querySelector('.close-modal');
             const runCodeBtn = playgroundModal.querySelector('.run-code-btn');
             const codeEditor = playgroundModal.querySelector('.code-editor');
             const outputConsole = playgroundModal.querySelector('.output-console');
@@ -414,10 +282,8 @@ console.log("Hello, TechLearn!");</textarea>
             
             runCodeBtn.addEventListener('click', function() {
                 const code = codeEditor.value;
-                outputConsole.innerHTML = '';
+                outputConsole.innerHTML = ''; // Clear previous output
                 
-                // For demo purposes, we're just showing the code
-                // In a real implementation, you'd use a secure evaluation method
                 try {
                     // Create a safe way to capture console.log output
                     const originalLog = console.log;

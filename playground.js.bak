@@ -1,0 +1,627 @@
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize CodeMirror editor
+    const codeEditor = CodeMirror(document.getElementById('code-editor'), {
+        mode: 'javascript',
+        theme: 'dracula',
+        lineNumbers: true,
+        autoCloseBrackets: true,
+        matchBrackets: true,
+        indentUnit: 4,
+        tabSize: 4,
+        indentWithTabs: false,
+        lineWrapping: true,
+        extraKeys: {
+            "Ctrl-Space": "autocomplete",
+            "Tab": function(cm) {
+                const spaces = Array(cm.getOption("indentUnit") + 1).join(" ");
+                cm.replaceSelection(spaces);
+            }
+        }
+    });
+
+    // Set default code
+    codeEditor.setValue(`// Welcome to TechLearn Code Playground
+// Try writing some code and click Run to execute it
+
+function greet(name) {
+    return "Hello, " + name + "! Welcome to TechLearn.";
+}
+
+console.log(greet("Student"));
+`);
+
+    // Language selector
+    const languageSelect = document.getElementById('language-select');
+    languageSelect.addEventListener('change', function() {
+        const language = this.value;
+        
+        // Change editor mode based on selected language
+        switch(language) {
+            case 'javascript':
+                codeEditor.setOption('mode', 'javascript');
+                break;
+            case 'python':
+                codeEditor.setOption('mode', 'python');
+                setDefaultCodeForLanguage('python');
+                break;
+            case 'java':
+                codeEditor.setOption('mode', 'text/x-java');
+                setDefaultCodeForLanguage('java');
+                break;
+            case 'cpp':
+                codeEditor.setOption('mode', 'text/x-c++src');
+                setDefaultCodeForLanguage('cpp');
+                break;
+            case 'csharp':
+                codeEditor.setOption('mode', 'text/x-csharp');
+                setDefaultCodeForLanguage('csharp');
+                break;
+            case 'html':
+                codeEditor.setOption('mode', 'htmlmixed');
+                setDefaultCodeForLanguage('html');
+                break;
+        }
+    });
+
+    // Set default code based on language
+    function setDefaultCodeForLanguage(language) {
+        let defaultCode = '';
+        
+        switch(language) {
+            case 'python':
+                defaultCode = `# Welcome to TechLearn Python Playground
+# Try writing some code and click Run to execute it
+
+def greet(name):
+    return f"Hello, {name}! Welcome to TechLearn."
+
+print(greet("Student"))
+`;
+                break;
+            case 'java':
+                defaultCode = `// Welcome to TechLearn Java Playground
+// Note: This is a simplified environment
+
+public class Main {
+    public static void main(String[] args) {
+        System.out.println(greet("Student"));
+    }
+    
+    public static String greet(String name) {
+        return "Hello, " + name + "! Welcome to TechLearn.";
+    }
+}
+`;
+                break;
+            case 'cpp':
+                defaultCode = `// Welcome to TechLearn C++ Playground
+// Note: This is a simplified environment
+
+#include <iostream>
+#include <string>
+
+std::string greet(std::string name) {
+    return "Hello, " + name + "! Welcome to TechLearn.";
+}
+
+int main() {
+    std::cout << greet("Student") << std::endl;
+    return 0;
+}
+`;
+                break;
+            case 'csharp':
+                defaultCode = `// Welcome to TechLearn C# Playground
+// Note: This is a simplified environment
+
+using System;
+
+class Program {
+    static void Main() {
+        Console.WriteLine(Greet("Student"));
+    }
+    
+    static string Greet(string name) {
+        return $"Hello, {name}! Welcome to TechLearn.";
+    }
+}
+`;
+                break;
+            case 'html':
+                defaultCode = `<!-- Welcome to TechLearn HTML/CSS Playground -->
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f2f5;
+        }
+        .greeting {
+            padding: 20px;
+            background-color: #4361ee;
+            color: white;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="greeting">
+        <h1>Hello, Student!</h1>
+        <p>Welcome to TechLearn HTML/CSS Playground</p>
+    </div>
+</body>
+</html>
+`;
+                break;
+        }
+        
+        if (defaultCode) {
+            codeEditor.setValue(defaultCode);
+        }
+    }
+
+    // Run code button
+    const runCodeBtn = document.getElementById('run-code-btn');
+    const outputConsole = document.getElementById('output-console');
+    
+    runCodeBtn.addEventListener('click', function() {
+        const code = codeEditor.getValue();
+        const language = languageSelect.value;
+        
+        // Clear previous output
+        outputConsole.innerHTML = '';
+        
+        // Add loading indicator
+        const loadingElement = document.createElement('div');
+        loadingElement.className = 'console-message loading';
+        loadingElement.textContent = 'Running code...';
+        outputConsole.appendChild(loadingElement);
+        
+        // Execute code based on language
+        setTimeout(() => {
+            outputConsole.removeChild(loadingElement);
+            
+            if (language === 'javascript') {
+                executeJavaScript(code);
+            } else {
+                // For other languages, we'll simulate execution
+                simulateExecution(code, language);
+            }
+        }, 500);
+    });
+    
+    // Execute JavaScript code
+    function executeJavaScript(code) {
+        try {
+            // Create a safe way to capture console.log output
+            const originalLog = console.log;
+            const logs = [];
+            
+            console.log = function() {
+                const args = Array.from(arguments);
+                logs.push(args.join(' '));
+                originalLog.apply(console, arguments);
+            };
+            
+            // For demo purposes only - NOT SAFE for production
+            // This is just to show functionality
+            try {
+                const result = new Function(code)();
+                
+                logs.forEach(log => {
+                    const logElement = document.createElement('div');
+                    logElement.className = 'console-message';
+                    logElement.textContent = log;
+                    outputConsole.appendChild(logElement);
+                });
+                
+                if (result !== undefined) {
+                    const resultElement = document.createElement('div');
+                    resultElement.className = 'console-message result';
+                    resultElement.textContent = '→ ' + result;
+                    outputConsole.appendChild(resultElement);
+                }
+            } catch (error) {
+                const errorElement = document.createElement('div');
+                errorElement.className = 'console-message error';
+                errorElement.textContent = error.toString();
+                outputConsole.appendChild(errorElement);
+            }
+            
+            // Restore original console.log
+            console.log = originalLog;
+        } catch (e) {
+            const errorElement = document.createElement('div');
+            errorElement.className = 'console-message error';
+            errorElement.textContent = 'Error: ' + e.message;
+            outputConsole.appendChild(errorElement);
+        }
+    }
+    
+    // Simulate execution for non-JavaScript languages
+    function simulateExecution(code, language) {
+        // In a real implementation, this would call a backend service
+        // For now, we'll simulate output
+        
+        const outputMessage = document.createElement('div');
+        outputMessage.className = 'console-message';
+        
+        switch(language) {
+            case 'python':
+                if (code.includes('print(')) {
+                    // Extract content from print statements as a simple simulation
+                    const printMatches = code.match(/print\((.*?)\)/g);
+                    if (printMatches) {
+                        printMatches.forEach(match => {
+                            const content = match.substring(6, match.length - 1);
+                            const evaluatedContent = content.replace(/["']/g, '');
+                            const outputLine = document.createElement('div');
+                            outputLine.className = 'console-message';
+                            outputLine.textContent = evaluatedContent;
+                            outputConsole.appendChild(outputLine);
+                        });
+                        return;
+                    }
+                }
+                outputMessage.textContent = "Python code executed successfully.";
+                break;
+                
+            case 'java':
+                if (code.includes('System.out.println')) {
+                    // Extract content from print statements as a simple simulation
+                    const printMatches = code.match(/System\.out\.println\((.*?)\);/g);
+                    if (printMatches) {
+                        printMatches.forEach(match => {
+                            const content = match.substring(19, match.length - 2);
+                            const evaluatedContent = content.replace(/["']/g, '');
+                            const outputLine = document.createElement('div');
+                            outputLine.className = 'console-message';
+                            outputLine.textContent = evaluatedContent;
+                            outputConsole.appendChild(outputLine);
+                        });
+                        return;
+                    }
+                }
+                outputMessage.textContent = "Java code compiled and executed successfully.";
+                break;
+                
+            case 'cpp':
+                if (code.includes('std::cout')) {
+                    // Extract content from print statements as a simple simulation
+                    const printMatches = code.match(/std::cout\s*<<\s*(.*?)\s*<<\s*std::endl;/g);
+                    if (printMatches) {
+                        printMatches.forEach(match => {
+                            const content = match.substring(match.indexOf('<<') + 2, match.lastIndexOf('<<')).trim();
+                            const evaluatedContent = content.replace(/["']/g, '');
+                            const outputLine = document.createElement('div');
+                            outputLine.className = 'console-message';
+                            outputLine.textContent = evaluatedContent;
+                            outputConsole.appendChild(outputLine);
+                        });
+                        return;
+                    }
+                }
+                outputMessage.textContent = "C++ code compiled and executed successfully.";
+                break;
+                
+            case 'csharp':
+                if (code.includes('Console.WriteLine')) {
+                    // Extract content from print statements as a simple simulation
+                    const printMatches = code.match(/Console\.WriteLine\((.*?)\);/g);
+                    if (printMatches) {
+                        printMatches.forEach(match => {
+                            const content = match.substring(18, match.length - 2);
+                            const evaluatedContent = content.replace(/["']/g, '');
+                            const outputLine = document.createElement('div');
+                            outputLine.className = 'console-message';
+                            outputLine.textContent = evaluatedContent;
+                            outputConsole.appendChild(outputLine);
+                        });
+                        return;
+                    }
+                }
+                outputMessage.textContent = "C# code compiled and executed successfully.";
+                break;
+                
+            case 'html':
+                // For HTML, show a preview instead of console output
+                outputConsole.innerHTML = '<div class="console-message">HTML Preview:</div>';
+                
+                const previewFrame = document.createElement('iframe');
+                previewFrame.className = 'html-preview';
+                previewFrame.sandbox = 'allow-scripts';
+                outputConsole.appendChild(previewFrame);
+                
+                const previewDocument = previewFrame.contentDocument || previewFrame.contentWindow.document;
+                previewDocument.open();
+                previewDocument.write(code);
+                previewDocument.close();
+                return;
+        }
+        
+        outputConsole.appendChild(outputMessage);
+    }
+    
+    // Clear code button
+    const clearCodeBtn = document.getElementById('clear-code-btn');
+    clearCodeBtn.addEventListener('click', function() {
+        if (confirm('Are you sure you want to clear the editor?')) {
+            codeEditor.setValue('');
+        }
+    });
+    
+    // Clear output button
+    const clearOutputBtn = document.getElementById('clear-output-btn');
+    clearOutputBtn.addEventListener('click', function() {
+        outputConsole.innerHTML = '<div class="console-message">// Output will appear here</div>';
+    });
+    
+    // Save code button
+    const saveCodeBtn = document.getElementById('save-code-btn');
+    saveCodeBtn.addEventListener('click', function() {
+        const code = codeEditor.getValue();
+        const language = languageSelect.value;
+        let extension;
+        
+        switch(language) {
+            case 'javascript':
+                extension = 'js';
+                break;
+            case 'python':
+                extension = 'py';
+                break;
+            case 'java':
+                extension = 'java';
+                break;
+            case 'cpp':
+                extension = 'cpp';
+                break;
+            case 'csharp':
+                extension = 'cs';
+                break;
+            case 'html':
+                extension = 'html';
+                break;
+            default:
+                extension = 'txt';
+        }
+        
+        const filename = `techlearn_code.${extension}`;
+        
+        // Create a blob and download link
+        const blob = new Blob([code], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        
+        // Clean up
+        setTimeout(() => {
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }, 0);
+    });
+    
+    // Gemini AI Integration
+    const GEMINI_API_KEY = 'AIzaSyAxiEmDZGBu9IwEcSOMqY-lRtuvgpHRi8U';
+    const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
+    
+    const aiPromptInput = document.getElementById('ai-prompt');
+    const aiSubmitBtn = document.getElementById('ai-submit');
+    const aiMessagesContainer = document.getElementById('ai-messages');
+    const voiceInputBtn = document.getElementById('voice-input');
+    
+    // Submit prompt to Gemini AI
+    aiSubmitBtn.addEventListener('click', function() {
+        const prompt = aiPromptInput.value.trim();
+        if (!prompt) return;
+        
+        // Add user message to the chat
+        addUserMessage(prompt);
+        
+        // Clear input
+        aiPromptInput.value = '';
+        
+        // Get code context
+        const codeContext = codeEditor.getValue();
+        
+        // Add thinking indicator
+        const thinkingIndicator = document.createElement('div');
+        thinkingIndicator.className = 'ai-message thinking';
+        thinkingIndicator.innerHTML = `
+            <div class="ai-avatar"><i class="fas fa-robot"></i></div>
+            <div class="message-content">
+                <div class="thinking-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        `;
+        aiMessagesContainer.appendChild(thinkingIndicator);
+        aiMessagesContainer.scrollTop = aiMessagesContainer.scrollHeight;
+        
+        // Call Gemini API
+        callGeminiAPI(prompt, codeContext)
+            .then(response => {
+                // Remove thinking indicator
+                aiMessagesContainer.removeChild(thinkingIndicator);
+                
+                // Add AI response
+                addAIMessage(response);
+            })
+            .catch(error => {
+                // Remove thinking indicator
+                aiMessagesContainer.removeChild(thinkingIndicator);
+                
+                // Add error message
+                addAIMessage("I'm sorry, I encountered an error processing your request. Please try again.");
+                console.error('Gemini API Error:', error);
+            });
+    });
+    
+    // Handle Enter key in prompt input
+    aiPromptInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            aiSubmitBtn.click();
+        }
+    });
+    
+    // Voice input button
+    voiceInputBtn.addEventListener('click', function() {
+        // Check if browser supports speech recognition
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const recognition = new SpeechRecognition();
+            
+            recognition.lang = 'en-US';
+            recognition.interimResults = false;
+            
+            // Change button to indicate recording
+            voiceInputBtn.innerHTML = '<i class="fas fa-microphone-alt"></i>';
+            voiceInputBtn.classList.add('recording');
+            
+            recognition.start();
+            
+            recognition.onresult = function(event) {
+                const transcript = event.results[0][0].transcript;
+                aiPromptInput.value = transcript;
+                
+                // Reset button
+                voiceInputBtn.innerHTML = '<i class="fas fa-microphone"></i>';
+                voiceInputBtn.classList.remove('recording');
+            };
+            
+            recognition.onerror = function() {
+                // Reset button
+                voiceInputBtn.innerHTML = '<i class="fas fa-microphone"></i>';
+                voiceInputBtn.classList.remove('recording');
+                
+                addAIMessage("I'm sorry, I couldn't hear you. Please try again or type your question.");
+            };
+            
+            recognition.onend = function() {
+                // Reset button if not already reset
+                voiceInputBtn.innerHTML = '<i class="fas fa-microphone"></i>';
+                voiceInputBtn.classList.remove('recording');
+            };
+        } else {
+            addAIMessage("I'm sorry, voice recognition is not supported in your browser. Please type your question instead.");
+        }
+    });
+    
+    // Add user message to chat
+    function addUserMessage(message) {
+        const userMessageElement = document.createElement('div');
+        userMessageElement.className = 'user-message';
+        userMessageElement.innerHTML = `
+            <div class="user-avatar"><i class="fas fa-user"></i></div>
+            <div class="message-content">
+                <p>${escapeHTML(message)}</p>
+            </div>
+        `;
+        aiMessagesContainer.appendChild(userMessageElement);
+        aiMessagesContainer.scrollTop = aiMessagesContainer.scrollHeight;
+    }
+    
+    // Add AI message to chat
+    function addAIMessage(message) {
+        const aiMessageElement = document.createElement('div');
+        aiMessageElement.className = 'ai-message';
+        aiMessageElement.innerHTML = `
+            <div class="ai-avatar"><i class="fas fa-robot"></i></div>
+            <div class="message-content">
+                <p>${formatAIResponse(message)}</p>
+            </div>
+        `;
+        aiMessagesContainer.appendChild(aiMessageElement);
+        aiMessagesContainer.scrollTop = aiMessagesContainer.scrollHeight;
+    }
+    
+    // Format AI response (convert markdown-like syntax to HTML)
+    function formatAIResponse(response) {
+        // Escape HTML first
+        let formatted = escapeHTML(response);
+        
+        // Convert code blocks
+        formatted = formatted.replace(/```([a-z]*)\n([\s\S]*?)\n```/g, '<pre><code class="language-$1">$2</code></pre>');
+        
+        // Convert inline code
+        formatted = formatted.replace(/`([^`]+)`/g, '<code>$1</code>');
+        
+        // Convert bold text
+        formatted = formatted.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+        
+        // Convert italic text
+        formatted = formatted.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+        
+        // Convert line breaks
+        formatted = formatted.replace(/\n/g, '<br>');
+        
+        return formatted;
+    }
+    
+    // Escape HTML to prevent XSS
+    function escapeHTML(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+    
+    // Call Gemini API
+    async function callGeminiAPI(prompt, codeContext) {
+        try {
+            const fullPrompt = `I'm working with the following code:\n\n${codeContext}\n\nUser question: ${prompt}\n\nPlease provide helpful, educational guidance. If there are code issues, explain them and suggest improvements. If the user is asking for an explanation, provide a clear, educational response.`;
+            
+            const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    contents: [{
+                        parts: [{
+                            text: fullPrompt
+                        }]
+                    }],
+                    generationConfig: {
+                        temperature: 0.7,
+                        topK: 40,
+                        topP: 0.95,
+                        maxOutputTokens: 1024
+                    }
+                })
+            });
+            
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error('Gemini API error response:', errorData);
+                throw new Error(`API error: ${response.status} - ${errorData.error?.message || 'Unknown error'}`);
+            }
+            
+            const data = await response.json();
+            
+            if (data.candidates && data.candidates[0] && data.candidates[0].content) {
+                return data.candidates[0].content.parts[0].text;
+            } else if (data.error) {
+                throw new Error(`Gemini API error: ${data.error.message}`);
+            } else {
+                console.error('Unexpected API response format:', data);
+                throw new Error('Unexpected API response format');
+            }
+        } catch (error) {
+            console.error('Error calling Gemini API:', error);
+            throw error;
+        }
+    }
+});

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - TechLearn</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">TechLearn</a>
+            </div>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="courses.html">Courses</a></li>
+                <li><a href="code-playground.html">Code Playground</a></li>
+                <li><a href="resources.html">Resources</a></li>
+                <li><a href="community.html">Community</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="#" class="btn-login">Login</a></li>
+                <li><a href="#" class="btn-signup">Sign Up</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Dashboard Section -->
+    <section class="dashboard-section">
+        <div class="container dashboard-container">
+            <!-- Dashboard Header -->
+            <div class="dashboard-header">
+                <div class="user-welcome">
+                    <div class="user-avatar-large dashboard-user-avatar">K</div>
+                    <div class="user-info">
+                        <h1>Welcome, <span class="dashboard-user-name">User</span></h1>
+                        <p class="user-email dashboard-user-email">user@example.com</p>
+                    </div>
+                </div>
+                <div class="dashboard-actions">
+                    <button class="settings-toggle">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </button>
+                    <div class="dashboard-settings">
+                        <h3>Display Settings</h3>
+                        <div class="settings-group">
+                            <label>Theme</label>
+                            <div class="theme-toggle-container">
+                                <span>Light</span>
+                                <label class="switch">
+                                    <input type="checkbox" id="theme-toggle">
+                                    <span class="slider round"></span>
+                                </label>
+                                <span>Dark</span>
+                            </div>
+                        </div>
+                        <div class="settings-group">
+                            <label>Font Size</label>
+                            <div class="font-size-controls">
+                                <button class="font-size-control" data-action="decrease">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <span class="font-size-value">14px</span>
+                                <button class="font-size-control" data-action="increase">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                                <button class="font-size-control" data-action="reset">
+                                    <i class="fas fa-undo"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Stats -->
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>3</h3>
+                        <p>Enrolled Courses</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>5</h3>
+                        <p>Code Snippets</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>1</h3>
+                        <p>Certificates</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>12h</h3>
+                        <p>Learning Time</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Grid -->
+            <div class="dashboard-grid">
+                <!-- Courses Section -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h2>My Courses</h2>
+                        <a href="courses.html" class="view-all">View All</a>
+                    </div>
+                    <div class="card-content dashboard-courses">
+                        <!-- Courses will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Code Snippets Section -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h2>Recent Code Snippets</h2>
+                        <a href="code-playground.html" class="view-all">Code Playground</a>
+                    </div>
+                    <div class="card-content dashboard-code-snippets">
+                        <!-- Code snippets will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Recent Activity Section -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h2>Recent Activity</h2>
+                    </div>
+                    <div class="card-content dashboard-activity">
+                        <!-- Activity will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Profile Section -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h2>Profile Information</h2>
+                        <a href="profile.html" class="view-all">Edit Profile</a>
+                    </div>
+                    <div class="card-content">
+                        <div class="profile-info">
+                            <div class="profile-item">
+                                <span class="profile-label">Username</span>
+                                <span class="profile-value dashboard-user-name">User</span>
+                            </div>
+                            <div class="profile-item">
+                                <span class="profile-label">Email</span>
+                                <span class="profile-value dashboard-user-email">user@example.com</span>
+                            </div>
+                            <div class="profile-item">
+                                <span class="profile-label">Member Since</span>
+                                <span class="profile-value dashboard-join-date">January 1, 2023</span>
+                            </div>
+                            <div class="profile-item">
+                                <span class="profile-label">Last Login</span>
+                                <span class="profile-value dashboard-last-login">Today, 10:30 AM</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>TechLearn</h3>
+                    <p>Transforming BTech education through multi-format learning and AI assistance.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="courses.html">Courses</a></li>
+                        <li><a href="code-playground.html">Code Playground</a></li>
+                        <li><a href="resources.html">Resources</a></li>
+                        <li><a href="community.html">Community</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Tutorials</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Subscribe</h4>
+                    <p>Stay updated with our latest courses and features.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your Email Address">
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 TechLearn. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Core scripts -->
+    <script src="js/db.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/ai-integration.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>
