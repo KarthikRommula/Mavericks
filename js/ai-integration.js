@@ -3,7 +3,15 @@
 
 document.addEventListener('DOMContentLoaded', function() {
     // Gemini AI API configuration
-    const GEMINI_API_KEY = 'AIzaSyAxiEmDZGBu9IwEcSOMqY-lRtuvgpHRi8U';
+    // The API key is loaded at runtime from window.APP_CONFIG (defined in js/config.js,
+    // which is gitignored). See js/config.example.js for the expected shape.
+    const GEMINI_API_KEY = window.APP_CONFIG?.GEMINI_API_KEY;
+    if (!GEMINI_API_KEY) {
+        console.error(
+            'Gemini API key is missing. Create js/config.js from js/config.example.js ' +
+            'and set window.APP_CONFIG.GEMINI_API_KEY before loading js/ai-integration.js.'
+        );
+    }
     const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
     // AI UI elements
     const aiPromptInput = document.getElementById('ai-prompt');
